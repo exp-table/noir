@@ -98,6 +98,7 @@ pub fn prove_and_verify(proof_name: &str, program_dir: &Path, experimental_ssa: 
     match prove_cmd::prove_with_path(
         &backend,
         Some(proof_name.to_owned()),
+        None,
         program_dir,
         &proof_dir,
         None,

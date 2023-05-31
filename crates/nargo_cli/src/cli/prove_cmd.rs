@@ -36,7 +36,7 @@ pub(crate) struct ProveCommand {
     circuit_name: Option<String>,
 
     /// The name of the toml file which contains the inputs for the prover
-    #[clap(default_value = PROVER_INPUT_FILE)]
+    #[clap(long, short, default_value = PROVER_INPUT_FILE)]
     prover_name: Option<String>,
 
     /// Verify proof after proving
@@ -114,7 +114,7 @@ pub(crate) fn prove_with_path<B: Backend, P: AsRef<Path>>(
     // Parse the initial witness values from Prover.toml
     let (inputs_map, _) = read_inputs_from_file(
         &program_dir,
-        prover_name.map(|prover_name| &prover_name).ok().or_else(|| PROVER_INPUT_FILE.into()),
+        prover_name.as_deref().unwrap_or(PROVER_INPUT_FILE),
         Format::Toml,
         &abi,
     )?;
